@@ -1,25 +1,16 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 async function main() {
-  const user = await prisma.role.create({
+  const tourist = await prisma.role.create({
     data: {
-      name: 'Admin',
+      name: 'tourist',
     },
   });
-  const john = await prisma.user.create({
+  const localUser = await prisma.role.create({
     data: {
-      email: 'john',
-      fname: 'john',
-      lname: 'g',
-      password: 'changeme',
-      role: {
-        connect: {
-          name: 'Admin',
-        },
-      },
+      name: 'localUser',
     },
   });
-  console.log({ john });
 }
 main()
   .then(async () => {
