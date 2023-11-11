@@ -1,12 +1,12 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { SQLiteService } from '../src/db/sqlite.service';
+const sqlite = new SQLiteService();
 async function main() {
-  const tourist = await prisma.role.create({
+  const tourist = await sqlite.role.create({
     data: {
       name: 'tourist',
     },
   });
-  const localUser = await prisma.role.create({
+  const localUser = await sqlite.role.create({
     data: {
       name: 'localUser',
     },
@@ -14,10 +14,10 @@ async function main() {
 }
 main()
   .then(async () => {
-    await prisma.$disconnect();
+    await sqlite.$disconnect();
   })
   .catch(async (e) => {
     console.error(e);
-    await prisma.$disconnect();
+    await sqlite.$disconnect();
     process.exit(1);
   });

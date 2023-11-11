@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../node_modules/@prisma-sqlite/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_SQLITE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  email    String @unique
+  fname    String
+  lname    String
+  password String
+  roleId   Int
+  role     Role   @relation(fields: [roleId], references: [id])
+}
+
+model Role {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  users User[]
+}

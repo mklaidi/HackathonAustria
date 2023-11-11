@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
-import { SignupUserDto } from "../api/schema/dto/signup-user.dto";
+import { SignupUserDto } from '../api/schema/dto/signup-user.dto';
+import { SQLiteService } from '../db/sqlite.service';
 
 // This should be a real class/interface representing a user entity
 export type User = any;
 
 @Injectable()
 export class UsersService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: SQLiteService) {}
 
   async findOne(username: string): Promise<User | undefined> {
     return this.prismaService.user.findUnique({
