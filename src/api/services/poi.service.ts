@@ -5,14 +5,35 @@ import { MongoDBService } from '../../db/mongodb.service';
 export class PoiService {
   constructor(private mongodbService: MongoDBService) {}
 
-  async findAll(city: string) {
+  async findAll(qry: string, offset: number, limit: number) {
+    console.log(qry);
     return this.mongodbService.poi.findMany({
       where: {
-        city: {
-          equals: city,
-          mode: 'insensitive',
-        },
+        OR: [
+          {
+            city: {
+              contains: qry,
+              mode: 'insensitive',
+            },
+          },
+          {
+            title: {
+              contains: qry,
+              mode: 'insensitive',
+            },
+          },
+          {
+            areas: {
+              has: qry,
+            },
+          },
+        ],
       },
+      orderBy: {
+        score: 'desc',
+      },
+      skip: offset,
+      take: limit,
     });
   }
 }

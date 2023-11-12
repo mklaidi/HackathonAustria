@@ -4,8 +4,9 @@ import {
   HttpCode,
   HttpStatus,
   Body,
-  Param, Query
-} from "@nestjs/common";
+  Param,
+  Query,
+} from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { PoiService } from '../services/poi.service';
 
@@ -22,8 +23,13 @@ export class PoiController {
     description: 'Places successfully fetched.',
   })
   @Post('getPlaces')
-  async getPlaces(@Query('city') city: string) {
-    console.log(city);
-    return this.poiService.findAll(city);
+  async getPlaces(
+    @Query('q') q: string,
+    @Query('limit') limit: number | undefined,
+    @Query('offset') offset: number | undefined,
+  ) {
+    offset = Number.parseInt(String(offset));
+    limit = Number.parseInt(String(limit));
+    return this.poiService.findAll(q, offset ?? 0, limit ?? 20);
   }
 }
