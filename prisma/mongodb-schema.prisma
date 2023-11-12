@@ -11,7 +11,7 @@ datasource db {
 model Event {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
   global_id    String?
-  internal_id  String?         @map("id")
+  internal_id  String?        @map("id")
   title        String?
   type         String?
   categories   String[]
@@ -34,7 +34,7 @@ model Event {
 model Poi {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
   global_id    String?
-  internal_id  String?         @map("id")
+  internal_id  String?        @map("id")
   title        String?
   type         String?
   categories   String[]
@@ -50,6 +50,7 @@ model Poi {
   geo          Geo
   ratings      Rating[]
   timeInterval TimeInterval[]
+  score        Int?
 
   @@map("poi")
 }
