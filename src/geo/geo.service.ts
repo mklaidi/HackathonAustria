@@ -112,12 +112,17 @@ export class GeoService {
   calculateRateOfChange(visits) {
     console.log(visits);
     const rates = [];
-
+    const rates2 = [];
     for (let i = 1; i < visits.length; i++) {
-      const rate = (visits[i].visitors - visits[i - 1].visitors9) / 15; // Assuming 15-minute intervals
+      const rate = (visits[i].visitors - visits[i - 1].visitors) / 15; // Assuming 15-minute intervals
       rates.push(rate);
+      if (i == 1) {
+        continue;
+      }
+      const rate2 = rates.at(i) - rates.at(i - 1);
+      rates2.push(rate2 / 15);
     }
-    return rates;
+    return rates2;
   }
 }
 

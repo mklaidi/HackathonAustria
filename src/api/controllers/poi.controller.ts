@@ -1,13 +1,5 @@
-import {
-  Controller,
-  Post,
-  HttpCode,
-  HttpStatus,
-  Body,
-  Param,
-  Query,
-} from '@nestjs/common';
-import { ApiOkResponse, ApiOperation, ApiParam } from '@nestjs/swagger';
+import { Controller, HttpCode, HttpStatus, Query, Get } from '@nestjs/common';
+import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { PoiService } from '../services/poi.service';
 
 @Controller('poi')
@@ -22,7 +14,7 @@ export class PoiController {
   @ApiOkResponse({
     description: 'Places successfully fetched.',
   })
-  @Post('getPlaces')
+  @Get('getPlaces')
   async getPlaces(
     @Query('q') q: string,
     @Query('limit') limit: number | undefined,
