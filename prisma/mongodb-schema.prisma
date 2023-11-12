@@ -85,3 +85,13 @@ type TimeInterval {
   freq        String?
   interval    Int
 }
+
+model Visit {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  date       DateTime
+  time       String
+  feature_id String
+  visitors   Int
+
+  @@map("visits")
+}
